@@ -1,0 +1,148 @@
+/*	
+	==================================================
+	========== Mijn eigen StyleSheet =================
+	==========      Gemaakt door:    =================
+	==========     Jack Reinieren    =================
+	==================================================
+ */
+
+/*	
+	==================================================
+	================ MAIN HTML ELEMENTS ==============
+	==================================================
+*/
+html {
+	height: 100%;	
+	margin:0;
+}
+
+body {
+	width: 100%;
+	background-color: #222;
+	overflow: hidden;
+}
+
+
+
+
+
+
+/*
+	==================================================
+	================ CLASS SELECTORS =================
+	==================================================
+*/
+
+/*	
+	==================================================
+	================ ID SELECORS =====================
+	==================================================
+*/
+#wrapper {
+	  position: relative;
+	  height: 100%;
+	  width: 100%;
+
+	}
+
+#heading{
+	width: 100%;
+	padding:.0625em;
+	font-family: 'Mr De Haviland';
+	box-sizing: content-box;
+	display: inline-block;
+	height: 20%;
+	color: #fff;
+	font-size: 1.5vw;
+	text-align: center;
+}
+
+#container {
+	display: flex;
+	text-align: center;
+}
+
+ #canvasDiv {
+	width: 100%;
+	height: 80%;
+	margin: 3em, 4em;
+
+}
+
+#buttons { /* dit is de DIV "Buttons" */
+	position: absolute;
+	bottom:5%;
+	right: 50%;
+	display: flex;
+
+}
+
+#SpeechRec_On {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin: 0 auto;
+	box-shadow: 0 10px 10px black;
+	outline: none;
+	background: url('https://jackuss.nl/wp-content/themes/twentyseventeen-child/Optellen/icons/Mic.png') center no-repeat;
+	background-size: 50% 50%;
+	background-color: grey;*/
+}
+
+
+#SpeechRec_On:active {
+	transform: translateY(4px);
+	box-shadow: 0 4px 10px;
+}
+
+
+ /*
+	==================================================
+	================ MEDIA QUERIES ===================
+	==================================================
+*/
+/* Deze is om te zorgen dat de heading en het canvas naast elkaar komt te staan
+	 als het scherm landscape is en te klein om nog duidelijk iets te kunnen zien  
+*/
+@media screen and (max-width: 46.250em) and (orientation: landscape)  {
+	
+	#wrapper {
+	  position: relative;
+	  height: 100%;
+	  width: 100%;
+	}
+
+
+	#heading {
+		position: absolute;
+		bottom: 0;
+		left: 15%;
+		display: flex;
+		font-size: 2vw;
+	}
+
+	#canvasDiv {
+		width: 60%;
+		height: 50%;
+		display: flex;
+		float: left;
+	}
+	
+	#buttons { /* dit is de DIV "Buttons" */
+	position: absolute;
+	right:10%;
+	top: 30px;
+	display: flex;
+	}
+	
+	#SpeechRec_On { /*dit is de knop zelf */
+		border-radius: 50%;
+		height: 60px;
+		width: 40px;
+	}
+
+}
+
+
+
+
