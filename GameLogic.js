@@ -1,40 +1,33 @@
 /*
 	========================================
-	========== Een rekenspelletje ==========
-	==========    Gemaakt door:   ==========
+	==========   An AddingGame    ==========
+	==========    Created by:     ==========
 	==========   Jack Reinieren   ==========
-	=========================================================================================
-	*/
+	========================================
+*/
 
-// ========== Globale variabelen ==========
+
+// ========== Global variables ==========
 var imgs = ["0.png", "1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png"];
-var Loc = 'https://jackuss.nl/wp-content/themes/twentyseventeen-child/Optellen';
+var Loc = ''; // PLEASE ADD YOUR OWN FILE LOCATION HERE
 var loadedImg = [];
-var nextNumbers = true; //Zorgen dat er weer 2 getallen @random gekozen worden
+var nextNumbers = true;
 var total;
 var nr1;
 var nr2;
-var noLoops = false; //om te zorgen dat de nieuwe nummers niet continue over het beeldscherm gaan op 60 fps
-var goed;
-var fout;
+var noLoops = false; //noLoop is a P5 function, so that is why I settled for noLoops
+var goed; // "goed" means "correct" in Dutch
+var fout; // "fout" means "incorrect" in Dutch
 		
-// ========== Functies ==========
+// ========== Functions ==========
 
-// Deze functie roep ik aan in de sketch.js onder de fn draw. 
 function gameLoop () {
 
-	// ========== variabelen voor de functie gameLoop ==========
-	
-	// functie die de header op de pagina laat zien.
 	this.displayHeader = function() {
-			//code om de header te vullen met text ("Hoeveel is: <nr1> + <nr2>")
 			var heading = document.getElementById('heading')
-			heading.innerHTML = '<h1>Hoeveel is: ' + nr1 + " + " +nr2 + "?</h1>"
+			heading.innerHTML = '<h1>What is: ' + nr1 + " + " +nr2 + "?</h1>"
 		}
 
-
-
-	//functie om alle afbeeldingen in een Array te laden
 	this.loadImages = function() {
  		for (var i = 0; i < imgs.length; i++) { 
 		loadedImg[i] = loadImage(Loc + '/img/' + imgs[i]);		
@@ -42,51 +35,47 @@ function gameLoop () {
 	
 	}
 	
-	// functie om makkelijker 2 hele getallen @random te maken.
 	this.randomInt = function(min,range) {
 		return Math.floor((Math.random()*(range))+min)
 	}
 
-	// functie moet 2 nummers @random selecteren. 
 	this.randomNrs = function () {
 		nr1 = this.randomInt(0,imgs.length);
 		nr2 = this.randomInt(0,imgs.length);
 	}
 
-	// functie maak ik aan, zodat ik, als ik de variabele 'nextNumbers' op true zet, ik niet opnieuw de Do-While loop hoef in te kloppen
+	
 	this.randomize = function() {
 		if(nextNumbers === true) {
-			do { 												// Do-While loop, die ervoor zorgt dat de rekensom niet boven de 10 uitkomt.
-				this.randomNrs()
+			do { 
 
 			} while (nr1 + nr2 > 10)
-				console.log("getallen: "+ nr1 + " " + " + " + nr2) //ter test
+				console.log("numbers: "+ nr1 + " " + " + " + nr2)
 				nextNumbers = false;	
 
-			} // einde randomize functie
+			} 
 	 	}
-	 	this.randomize(); //aanroepen om deze functie daadwerkelijk uit te voeren.
-	 	// functie om de images op het scherm te toveren
+	this.randomize();
+	
 	this.displayImages = function () { 
 		img1 = image(loadedImg[nr1], -150,0);
 		img2 = image(loadedImg[nr2], -300 +(width / 2), 0);
 	} 
-	// einde displayImages
+	
 	this.escPressed = function() {		
 		document.onkeydown = function(evt) {
 	    evt = evt || window.event;
     	if (evt.keyCode == 27) {
         alert('Esc key pressed.');
         noLoop();
-    	}
+    			}
 		}
 	}
 	
-	
 	this.goodOrNot = function() {
 		if (nr1 + nr2 == total) {
-				goed.play();
-         goed.onended(function(){ //Deze functie zorgt ervoor dat er pas NADAT het geluid gespeeld is, een volgende 2 random getallen gekozen worden
+			goed.play();
+        		goed.onended(function(){ //called because otherwise the mushrooms will change BEFORE the complete soundfile is played.
          	 	nextNumbers=true;
          });			
 			} else {
@@ -94,14 +83,11 @@ function gameLoop () {
 			}
 		noLoops = false;
 		}
-
-
-	//=============================
-}  // einde gameLoop
+	} 
 	
-	//========== extra functies, die niet direct met het verloop van het spel te maken hebben.
+	//==========  Functions not directly related to the loop for the Game ==========
 
-function speechRec (){
+	function speechRec (){
 		var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
 		var transcript;
 		var property = document.getElementById('SpeechRec_On');
@@ -132,25 +118,18 @@ function speechRec (){
 				 
 				console.log("total is: " + total)
 				noLoops = true; 
-			} // einde Forloop
-		} //einde onresult functie
+			} 
+		} 
 
-	} // einde speechRec functie
+	} 
 
-
-//Geluiden laden, voor als iets goed of fout is
-function LoadSounds () {
-	var goedAntwoord = '00_Base_GoedAntwoord.ogg';
-	var foutAntwoord = '00_Base_FoutAntwoord.ogg';
-
-	goed = loadSound(Loc + '/snd/' + goedAntwoord);
-  fout = loadSound(Loc + '/snd/'+ foutAntwoord);
+	function LoadSounds () {
+		var goedAntwoord = '00_Base_GoedAntwoord.ogg';
+		var foutAntwoord = '00_Base_FoutAntwoord.ogg';
+		
+		goed = loadSound(Loc + '/snd/' + goedAntwoord);
+ 	 	fout = loadSound(Loc + '/snd/'+ foutAntwoord);
 
 }
-// ================================= Einde alle functies ========================================
-/*
 
-
-
-
-*/
+// ================================= End of all Functions ========================================
